@@ -29,11 +29,14 @@
             </c:if>
         </div>
             
-        <c:if test="${sessionScope.items.size() > 0}">
+        <c:if test="${sessionScope.itemList.size() > 0}">
         <form action="<c:url value='/ShoppingList'/>" method="post">
-            <c:forEach items="${sessionScope.items}" var='singleItem'>        
-                <input type="radio" name="${delete}" value="${singleItem}"/> ${singleItem}       
+            
+            <c:forEach items="${sessionScope.itemList}" var='singleItem'>        
+                <input type="radio" name="deleteItem" value="${singleItem}"/> ${singleItem}  
+                <br>
             </c:forEach>
+            
                 <input type="submit" value="delete"/>
                 <input type="hidden" name="action" value="delete"/>
         </form>

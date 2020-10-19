@@ -78,11 +78,18 @@ public class ShoppingListServlet extends HttpServlet {
                  if(item != null && item != ""){
                       request.setAttribute("isAddEmpty", false);
                      if(itemList != null ){
-                         itemList = new ArrayList();     
+//                         itemList = new ArrayList();  
+                         itemList.add(item);
+                    session.setAttribute("itemList", itemList);
+                    getServletContext().getRequestDispatcher("/WEB-INF/Shoppinglist.jsp").forward(request, response);
+//               
                      }
+                     else{
+                     itemList = new ArrayList(); 
                     itemList.add(item);
                     session.setAttribute("itemList", itemList);
                     getServletContext().getRequestDispatcher("/WEB-INF/Shoppinglist.jsp").forward(request, response);
+                     }
                  }
                  else{
                      request.setAttribute("isAddEmpty", true);
@@ -91,9 +98,9 @@ public class ShoppingListServlet extends HttpServlet {
                  }
                  break;
              case "delete":
-                 String delete = request.getParameter("delete");
+                 String delete = (String)request.getParameter("deleteItem");
                  
-                 if(delete != null && delete != ("")){
+                 if(delete != null && !delete.equals("")){
                  request.setAttribute("isDeleteEmpty", false);
                  itemList.remove(delete);
                  session.setAttribute("itemList", itemList);
